@@ -4,7 +4,7 @@
             <div class="col">
                 <data-table :table-heading="tableHeading" table-title="Student List">
                     <template v-slot:page_top>
-                        <page-top topPageTitle="Configuration List" :default-add-button="can('configuration_add')" page-modal-title="Configuration Add/Edit" :default-object="{key:'',type:'text',value:''}"></page-top>
+                        <page-top topPageTitle="Configuration List" :default-add-button="can('configuration.create')" page-modal-title="Configuration Add/Edit" :default-object="{key:'',type:'text',value:''}"></page-top>
                     </template>
                     <template v-slot:data>
                         <tr v-for="(data, index) in dataList.data">
@@ -19,8 +19,8 @@
                             </td>
                             <td>
                                 <div class="hstack gap-3 fs-15">
-                                    <a v-if="can('configuration_update')" class="link-primary" @click="editData(data, data.id)"><i class="fa fa-edit"></i></a>
-                                    <a v-if="can('configuration_delete')" class="link-danger"  @click="deleteInformation(index, data.id)"><i class="fa fa-trash"></i></a>
+                                    <a v-if="can('configuration.update')" class="link-primary" @click="editData(data, data.id)"><i class="fa fa-edit"></i></a>
+                                    <a v-if="can('configuration.destroy')" class="link-danger"  @click="deleteInformation(index, data.id)"><i class="fa fa-trash"></i></a>
                                 </div>
                             </td>
                         </tr>
@@ -103,7 +103,6 @@
                 configKeys : {
                     logo : 'Logo',
                     name : 'Application name',
-                    address_configuration : 'Address for Contact',
                     phone_configuration : 'Phone Number for Contact',
                 },
             }

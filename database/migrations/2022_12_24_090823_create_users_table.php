@@ -17,17 +17,14 @@ class CreateUsersTable extends Migration {
 		{
 			$table->bigInteger('id', true)->unsigned();
 			$table->integer('role_id');
-            $table->integer('nid');
 			$table->string('name', 100);
-			$table->string('company_name');
-			$table->string('contact_number');
-			$table->string('address');
+			$table->string('contact_number')->nullable();
 			$table->string('username', 150);
 			$table->string('email', 150);
 			$table->string('password');
+			$table->string('image')->nullable();
             $table->integer('status')->default(1)->comment('1=Active, 0=InActive');
             $table->string('layout', 100)->default('vertical');
-            $table->string('is_superadmin')->default(0)->comment('0=General user, 1=SuperAdmin');
 			$table->timestamps();
 		});
 	}

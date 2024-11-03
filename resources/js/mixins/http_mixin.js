@@ -279,6 +279,8 @@ export default {
                     if (parseInt(response.data.status) === 2000) {
                         var Configurations = response.data.result;
                         _this.$store.commit('Config', response.data.result);
+                        _this.$store.commit('authUser', Configurations.user);
+                        _this.$store.commit('appConfig', Configurations.config);
                         _this.$store.commit('allMenus', Configurations.menus);
                         if (typeof callback === 'function') {
                             callback(response.data.result);

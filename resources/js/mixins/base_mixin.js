@@ -177,6 +177,12 @@ export default {
         uploadProgress: function () {
             return this.$store.getters.uploadProgress;
         },
+        authUser: function () {
+            return this.$store.getters.authUser;
+        },
+        appConfig: function () {
+            return this.$store.getters.appConfig;
+        },
 
     },
     methods: {

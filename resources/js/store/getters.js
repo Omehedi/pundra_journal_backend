@@ -35,26 +35,8 @@ export const getters = {
     Permissions(state) {
         return state.Permissions;
     },
-    Notifications(state) {
-        return state.Notifications;
-    },
-    NotificationIds(state) {
-        return state.NotificationIds;
-    },
-
-    DesktopNotifications(state) {
-        return state.DesktopNotifications;
-    },
-    DesktopNotificationIds(state) {
-        return state.DesktopNotificationIds;
-    },
-
     currentPagination(state) {
         return state.currentPagination;
-    },
-
-    Messages(state) {
-        return state.Messages;
     },
     detailsData(state) {
         return state.detailsData;
@@ -62,7 +44,10 @@ export const getters = {
     uploadProgress(state) {
         return state.uploadProgress;
     },
-    user(state) {
-        return state.currentUser !== null && state.currentUser !== undefined ? state.currentUser : {};
+    authUser(state) {
+        return state.authUser;
+    },
+    appConfig(state) {
+        return state.appConfig;
     },
 };

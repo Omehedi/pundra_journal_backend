@@ -25,14 +25,12 @@ class User extends Authenticatable
 
     protected $fillable = [
         'role_id',
-        'nid',
         'name',
-        'company_name',
         'contact_number',
-        'address',
         'username',
         'email',
         'password',
+        'image',
         'is_superadmin',
     ];
     protected $casts = [

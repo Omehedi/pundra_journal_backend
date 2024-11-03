@@ -25,9 +25,6 @@ class UserTableSeeder extends Seeder
                 'name'=>'TMSS ICT LIMITED',
                 'username'=>'tmssict',
                 'email'=>'superadmin@gmail.com',
-                'nid'=>'2535456825652',
-                'company_name'=>'TMSS ICT LIMITED',
-                'address'=>'Kazipara, Mirpur, Dhaka',
                 'password'=>Hash::make('123456'),
             ],
         ];

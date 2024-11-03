@@ -45,35 +45,13 @@ export const mutations = {
     detailsData(state, data) {
         state.detailsData = data;
     },
-
-    // Notification management=====
-
-    Notifications(state, data) {
-        state.Notifications.push(data);
+    authUser(state, data) {
+        state.authUser = data;
     },
-    NotificationIds(state, data) {
-        state.NotificationIds.push(data);
+    appConfig(state, data) {
+        state.appConfig = data;
     },
 
-    EmptyNotifications(state, data) {
-        state.Notifications = [];
-    },
-    EmptyNotificationIds(state, data) {
-        state.NotificationIds = [];
-    },
-
-    DesktopNotifications(state, data) {
-        state.DesktopNotifications.push(data);
-    },
-    DesktopNotificationIds(state, data) {
-        state.DesktopNotificationIds.push(data);
-    },
-    EmptyDesktopNotifications(state, data) {
-        state.DesktopNotifications = [];
-    },
-    EmptyDesktopNotificationIds(state, data) {
-        state.DesktopNotificationIds = [];
-    },
     uploadProgress(state, data) {
         state.uploadProgress = data;
     },

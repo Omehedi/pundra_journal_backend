@@ -5,19 +5,19 @@
             <!-- Dark Logo-->
             <router-link to="/admin/dashboard" class="logo logo-dark">
                 <span class="logo-sm">
-                    <img :src="getImage(null, 'images/logo.png')" alt="" height="22">
+                    <img :src="appConfig.logo" alt="" height="22">
                 </span>
                 <span class="logo-lg">
-                    <img :src="getImage(null, 'images/logo.png')" alt="" height="45">
+                    <img :src="appConfig.logo" alt="" height="45">
                 </span>
             </router-link>
             <!-- Light Logo-->
             <router-link to="/admin/dashboard" class="logo logo-light">
                 <span class="logo-sm">
-                    <img :src="getImage(null, 'images/logo.png')" alt="" height="22">
+                    <img :src="appConfig.logo" alt="" height="22">
                 </span>
                 <span class="logo-lg">
-                    <img :src="getImage(null, 'images/logo.png')" alt="" height="45">
+                    <img :src="appConfig.logo" alt="" height="45">
                 </span>
             </router-link>
             <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover" id="vertical-hover">

@@ -18,7 +18,7 @@ class UserProfileController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $data = $this->model->where('id', $user->id)->orderBy('id','desc')->paginate(15);
+        $data = $this->model->where('id', $user->id)->orderBy('id','desc')->first();
         return returnData(2000, $data);
     }
 
@@ -36,13 +36,12 @@ class UserProfileController extends Controller
             $user = Auth::user();
             if(auth()->user()){
                 $user->name = $request->input('name');
-                $user->company_name = $request->input('company_name');
-                $user->address = $request->input('address');
-                $user->nid = $request->input('nid');
                 $user->contact_number = $request->input('contact_number');
                 $user->email = $request->input('email');
                 $user->layout = $request->input('layout');
+                $user->image = $request->input('image');
                 $user->save();
+
                 if($request->input('password')){
                     if (!Hash::check($request->old_password, $user->password)) {
                         return returnData(3000, null, 'Old password is incorrect');

@@ -2,7 +2,8 @@ export const state = {
     httpRequest: false,
     dataList: [],
     detailsData: [],
-    authUser: false,
+    authUser: {},
+    appConfig: {},
     software: '',
     filter: {
         per_page : 2,
