@@ -13,6 +13,11 @@ class UserWeb extends Authenticatable
     protected $table = 'user_web';
 
     protected $fillable = [
-        'name', 'email', 'password','phone'
+        'name', 'email', 'password','phone', 'image'
+    ];
+
+    protected $hidden = [
+        'password',
+        'remember_token'
     ];
 }

@@ -34,7 +34,7 @@
                         <div class="position-relative">
                              <h2 class="mt-1">
                                  <strong class="uppercase">
-                                     <span class="app_name text-dark">{{showData(appConfig, 'name')}}</span>
+                                     <span class="app_name text-dark">{{showData(appConfig, 'app_name')}}</span>
                                  </strong>
                              </h2>
                         </div>

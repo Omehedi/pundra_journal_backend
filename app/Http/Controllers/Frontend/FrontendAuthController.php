@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class FrontendAuthController extends Controller
 {
@@ -64,7 +65,7 @@ class FrontendAuthController extends Controller
 
     public function logout(){
 
-        Auth::logout();
+        Auth::guard('user_web')->logout();
 
         return redirect('login');
     }
@@ -75,6 +76,45 @@ class FrontendAuthController extends Controller
 
     public function userProfile(Request $request){
         return returnData(2000, auth()->guard('user_web')->user());
+    }
+    public function userProfileUpdate(Request $request)
+    {
+        $id = auth('user_web')->user()->id;
+        $input = $request->all();
+
+        $user = UserWeb::where('id', auth('user_web')->user()->id)->first();
+
+        $validatorRules = [
+            'name' => 'required',
+            'email' => "required|email|unique:user_web,email,$id",
+            'phone' => "required|numeric|unique:user_web,phone,$id"
+        ];
+
+        if (isset($input['password']) && !empty($input['password'])) {
+            $validatorRules['password'] = 'required|string|min:6|same:confirm_password';
+            $validatorRules['current_password'] =  ['required', function ($attr, $password, $validation) use ($user) {
+                if (!Hash::check($password, $user->password)) {
+                    return $validation(__('The current password is incorrect.'));
+                }
+            }];
+        }
+
+        $validator = Validator::make($input, $validatorRules);
+
+        if ($validator->fails()) {
+            return returnData(3000, $validator->errors(), 'Validation Error');
+        }
+
+        $user = UserWeb::where('id', auth('user_web')->user()->id)->first();
+        $user->fill($input);
+
+        if (isset($input['password']) && !empty($input['password'])) {
+            $user->password = Hash::make($input['password']);
+        }
+
+        $user->save();
+
+        return returnData(2000, $user, 'Successfully Updated');
     }
 
     public function configurations()

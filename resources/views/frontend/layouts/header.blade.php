@@ -2,9 +2,10 @@
     <div class="container-fluid">
         <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
             <div class="container">
-                <a class="navbar-brand" href="#">
-                    <img src="{{assets('frontend_asset/images/logo/Logo_JCF.png')}}" alt="Site Logo">
-                </a>
+                @php
+                $app_name = configs(['website_name']);
+                 @endphp
+                <a class="navbar-brand" href="#"><strong style="text-transform: uppercase">{{$app_name}}</strong></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -14,12 +15,6 @@
                             <a class="nav-link" aria-current="page" href="{{url('/')}}">
                                 <i class="fa fa-home"></i>
                                 <span>Home</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="{{url('jobs')}}">
-                                <i class="fa fa-list"></i>
-                                <span>Jobs</span>
                             </a>
                         </li>
                         @guest('user_web')
@@ -67,7 +62,7 @@
 
         </div>
     </div>
-    <div class="page-heading-section section bg-parallax" data-bg-image="{{''}}" data-overlay="50"  style="background-size: auto">
+    <div class="page-heading-section section bg-parallax"  data-bg-image="{{configs(['website_banner'])}}" data-overlay="50"  style="background-size: cover; background-repeat: no-repeat;">
         <div class="container">
             <div class="page-heading-content text-center">
                 <h3 class="title">{{isset($title) ? $title : ''}}</h3>

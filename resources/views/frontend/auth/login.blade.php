@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-lg-6 col-md-8 col-12 mx-auto">
                     <ul class="login-register-tab-list nav" role="tablist">
-                        <li><a class="active" >Register</a></li>
+                        <li><a class="active" >Login</a></li>
                     </ul>
                     <div class="form">
                         @if (session()->has('error'))

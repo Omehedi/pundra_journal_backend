@@ -1,16 +1,9 @@
 <template>
     <div class="mobile-hidden">
         <div class="text-center">
-            <div class="form-group image_upload" @click="clickImageInput('image')" :style="{ backgroundImage: 'url(' + getImage(null, 'images/upload.png') + ')' }" style="background-size: 300px !important">
-                <img :class="`img-thumbnail pointer`" :src="authUser.image ? getImage(authUser.image, 'images/memers.png') : getImage(null, (authUser.PBI_SEX == 'Female') ? 'images/female_staff.jpg' : 'images/male_stuff.png')">
+            <div class="form-group image_upload" @click="clickImageInput('image')">
+                <img class="img-thumbnail pointer" :src="getImage(authUser.image, 'images/avater.png')">
                 <input name="thumbnail" style="display: none;" id="image" type="file" @change="uploadFile($event, formObject, 'image',(data)=>{authUser.image=formObject.image},false,true)">
-            </div>
-        </div>
-        <hr>
-        <div class="text-center">
-            <div><strong>{{authUser.name}}</strong></div>
-            <div v-if="parseInt(authUser.user_type) === 1">
-                <span>Initial PIN : {{authUser.initial_pbi_id}}</span> || <span>PIN : {{authUser.pbi_id}}</span>
             </div>
         </div>
         <hr>

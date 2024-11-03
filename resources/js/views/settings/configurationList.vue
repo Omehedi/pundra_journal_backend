@@ -102,8 +102,10 @@
                 formModalId : 'formModal',
                 configKeys : {
                     logo : 'Logo',
-                    name : 'Application name',
+                    app_name : 'Application name',
+                    website_name : 'WebSite Logo Test',
                     phone_configuration : 'Phone Number for Contact',
+                    website_banner : 'Website banner',
                 },
             }
         },

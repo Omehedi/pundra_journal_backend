@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 
 class FrontendController extends Controller
 {
-    public function index()
-    {
-        return view('frontend.index');
+    public function index(){
+        $data['title'] = 'Welcome to Homepage';
+        return view('frontend.index', $data);
     }
 }

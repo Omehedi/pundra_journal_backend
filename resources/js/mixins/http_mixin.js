@@ -315,17 +315,17 @@ export default {
                 .then((response) => {
                     _this.$store.commit('httpRequest', false);
 
-                    if (typeof callback === 'function') {
-                        callback(response.data);
-                    }
-
                     if (parseInt(response.data.status) === 2000) {
                         this.$set(imageObject, dataModel, response.data.result);
-                    } else if (parseInt(response.data.status) === 3000) {
+                    }
+                    if (parseInt(response.data.status) === 3000) {
                         setTimeout(function () {
                             _this.$store.commit('uploadProgress', 0);
                         }, 1000);
                         _this.$toastr('error', response.data.message, 'Error');
+                    }
+                    if (typeof callback === 'function') {
+                        callback(response.data);
                     }
                 }).catch(function () {
                 _this.$store.commit('httpRequest', false);

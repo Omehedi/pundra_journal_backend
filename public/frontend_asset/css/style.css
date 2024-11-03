@@ -4963,3 +4963,12 @@ input[aria-required="true"], select[aria-required="true"], textarea[aria-require
     background-position: right top;
     background-repeat: no-repeat;
 }
+
+.form-group.image_upload {
+    min-height: 180px;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.pointer{
+    cursor: pointer;
+}

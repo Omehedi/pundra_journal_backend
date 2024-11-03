@@ -8,13 +8,9 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RBAC\RoleController;
 use App\Http\Controllers\RBAC\ModuleController;
 use App\Http\Controllers\UserProfileController;
-use App\Http\Controllers\ConfigurationController;
+use App\Http\Controllers\SupportController;
 use App\Http\Controllers\RBAC\RoleModuleController;
 use App\Http\Controllers\RBAC\RolePermissionController;
-
-
-Route::get('/',[\App\Http\Controllers\Frontend\FrontendController::class,'index'])->name('frontend.index');
-
 
 Route::middleware('guest')->group(function () {
     Route::get('/admin', [AuthController::class, 'loginForm'])->name('login');
@@ -25,22 +21,21 @@ Route::get('/home', function () {
     return redirect('/admin/dashboard');
 });
 
-
+Route::post('api/file_upload', [UploadController::class, 'uploadFile']);
 Route::middleware('auth')->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::view('/admin/{any}', 'backend.index')->where('any', '.*');
 
     Route::prefix('api')->group(function () {
-        Route::post('/configurations', [ConfigurationController::class, 'getConfigurations']);
-        Route::post('/file_upload', [UploadController::class, 'uploadFile']);
+        Route::post('/configurations', [SupportController::class, 'getConfigurations']);
         Route::post('/image', [UploadController::class, 'imageUpload']);
         Route::resource('/edit_user', UserProfileController::class);
         Route::resource('/users', UserController::class);
 
         Route::middleware('admin')->group(function () {
-            Route::resource('/settings', ConfigurationController::class);
+            Route::resource('/settings', SupportController::class);
 
-            Route::post('/general', [ConfigurationController::class, 'getGeneralData']);
+            Route::post('/general', [SupportController::class, 'getGeneralData']);
             Route::resource('/modules', ModuleController::class);
             Route::resource('/roles', RoleController::class);
             Route::resource('/module_permissions', RoleModuleController::class);

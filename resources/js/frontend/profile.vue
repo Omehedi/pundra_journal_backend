@@ -3,27 +3,18 @@
         <div id="account-details" class="tab-pane active show">
             <div class="row">
                 <div class="col-12">
-                    <h5>Profile
-                        <span v-if="parseInt(authUser.user_type) === 1">
-                            ( <template>
-                            <span class="text-warning" v-if="parseInt(authUser.employee_approve) === 9">Drafted</span>
-                            <span class="text-primary" v-else-if="parseInt(authUser.employee_approve) === 4">Submitted</span>
-                            <span class="text-success" v-else-if="parseInt(authUser.employee_approve) === 1">Approved</span>
-                            <span class="text-danger" v-else-if="parseInt(authUser.employee_approve) === 0">Rejected</span>
-                            <span v-else>Active</span>
-                        </template>)
-                        </span></h5>
+                    <h5>{{ authUser.name }}</h5>
                 </div>
             </div>
             <hr>
             <div class="form">
-                <form @submit.prevent="submitStaffForm($route.meta.dataUrl, $route.meta.nextUrl)">
+                <form @submit.prevent="submitForm(formObject, false, ()=>{getAuthData()})">
                     <div class="col-md-8">
                         <div class="row">
                             <label class="col-md-3">Profile Picture : </label>
                             <div class="col-md-8 mb-10 text-center">
-                                <div class="form-group image_upload" @click="clickImageInput('image')" :style="{ backgroundImage: 'url(' + getImage(null, 'images/upload.png') + ')' }" style="background-size: 300px !important">
-                                    <img v-if="formObject.image" :src="getImage(formObject.image)">
+                                <div class="form-group image_upload" @click="clickImageInput('image')">
+                                    <img class="pointer" :src="getImage(authUser.image, 'images/avater.png')">
                                     <input name="thumbnail" style="display: none;" id="image" type="file" @change="uploadFile($event, formObject, 'image',false,false,true)">
                                 </div>
                             </div>
@@ -44,12 +35,6 @@
                             <label class="col-md-3">Phone : </label>
                             <div class="col-md-8 mb-10">
                                 <input type="text" class="form-control" v-validate="'required'" name="phone" v-model="formObject.phone">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <label class="col-md-3">Employee ID : </label>
-                            <div class="col-md-8 mb-10">
-                                <input type="text" readonly class="form-control" name="pbi_id" v-model="formObject.pbi_id">
                             </div>
                         </div>
                         <div class="row">
@@ -92,9 +77,18 @@
 <script>
 export default {
     name: "profile",
+    methods: {
+        getAuthData: function () {
+            const _this = this;
+            _this.httpReq(_this.urlGenerate('auth/user_profile'), 'get', {}, {},
+                function (dataReturn) {
+                _this.$store.commit('formObject', dataReturn);
+                });
+        }
+    },
     mounted() {
         const _this = this;
-        _this.getStaffData();
+        _this.getAuthData();
     }
 }
 </script>

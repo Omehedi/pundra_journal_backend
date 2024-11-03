@@ -253,6 +253,9 @@ if (!function_exists('configs')) {
                 $conData[$config->key] = deviceWiseUrl($config->value);
             }
         }
+        if (count($keys) == 1) {
+            return collect($conData)->first();
+        }
         return $conData;
     }
 }

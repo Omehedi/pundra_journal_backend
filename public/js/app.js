@@ -4350,8 +4350,10 @@ __webpack_require__.r(__webpack_exports__);
       formModalId: 'formModal',
       configKeys: {
         logo: 'Logo',
-        name: 'Application name',
-        phone_configuration: 'Phone Number for Contact'
+        app_name: 'Application name',
+        website_name: 'WebSite Logo Test',
+        phone_configuration: 'Phone Number for Contact',
+        website_banner: 'Website banner'
       }
     };
   },
@@ -5889,7 +5891,7 @@ var render = function render() {
     staticClass: "uppercase"
   }, [_c("span", {
     staticClass: "app_name text-dark"
-  }, [_vm._v(_vm._s(_vm.showData(_vm.appConfig, "name")))])])])])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v(_vm._s(_vm.showData(_vm.appConfig, "app_name")))])])])])])]), _vm._v(" "), _c("div", {
     staticClass: "d-flex align-items-center"
   }, [_c("div", {
     staticClass: "dropdown ms-sm-3 header-item topbar-user"
@@ -9033,16 +9035,17 @@ __webpack_require__.r(__webpack_exports__);
       };
       _this.axios.post(URL, formData, config).then(function (response) {
         _this.$store.commit('httpRequest', false);
-        if (typeof callback === 'function') {
-          callback(response.data);
-        }
         if (parseInt(response.data.status) === 2000) {
           _this4.$set(imageObject, dataModel, response.data.result);
-        } else if (parseInt(response.data.status) === 3000) {
+        }
+        if (parseInt(response.data.status) === 3000) {
           setTimeout(function () {
             _this.$store.commit('uploadProgress', 0);
           }, 1000);
           _this.$toastr('error', response.data.message, 'Error');
+        }
+        if (typeof callback === 'function') {
+          callback(response.data);
         }
       })["catch"](function () {
         _this.$store.commit('httpRequest', false);
