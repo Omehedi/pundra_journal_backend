@@ -5,7 +5,7 @@
         </div>
         <div class="card-body">
             <form @submit.prevent="search()">
-                <div class="row mb-2 filter_desktop">
+                <div class="row filter_desktop">
                     <div :class="defaultFilterWidth" v-if="defaultFilter">
                         <input type="text" v-model="formFilter.keyword" class="form-control" placeholder="Name"/>
                     </div>

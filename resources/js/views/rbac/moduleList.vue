@@ -4,7 +4,7 @@
             <div class="col">
                 <data-table :table-heading="tableHeading" table-title="Student List">
                     <template v-slot:page_top>
-                        <page-top topPageTitle="Module List" page-modal-title="Module Add/Edit" :default-object="{parent_id:''}"></page-top>
+                        <page-top topPageTitle="Module List" :default-add-button="can('modules.create')" page-modal-title="Module Add/Edit" :default-object="{parent_id:''}"></page-top>
                     </template>
                     <template v-slot:data>
                         <template v-for="(data, index) in dataList.data">
@@ -22,8 +22,8 @@
                                 </td>
                                 <td>
                                     <div class="hstack gap-3 fs-15">
-                                        <a class="link-primary" @click="editData(data, data.id)"><i class="fa fa-edit"></i></a>
-                                        <a class="link-danger"  @click="deleteInformation(index, data.id)"><i class="fa fa-trash"></i></a>
+                                        <a class="link-primary" v-if="can('modules.update')" @click="editData(data, data.id)"><i class="fa fa-edit"></i></a>
+                                        <a class="link-danger" v-if="can('modules.destroy')"  @click="deleteInformation(index, data.id)"><i class="fa fa-trash"></i></a>
                                     </div>
                                 </td>
                             </tr>

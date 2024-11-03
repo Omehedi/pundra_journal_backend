@@ -4547,7 +4547,7 @@ var render = function render() {
       }
     }
   }, [_c("div", {
-    staticClass: "row mb-2 filter_desktop"
+    staticClass: "row filter_desktop"
   }, [_vm.defaultFilter ? _c("div", {
     "class": _vm.defaultFilterWidth
   }, [_c("input", {
@@ -5889,7 +5889,7 @@ var render = function render() {
     staticClass: "uppercase"
   }, [_c("span", {
     staticClass: "app_name text-dark"
-  }, [_vm._v(_vm._s(_vm.showData(_vm.Config.config, "name")))]), _vm._v(" |\n                             ")])])])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v(_vm._s(_vm.showData(_vm.appConfig, "name")))])])])])])]), _vm._v(" "), _c("div", {
     staticClass: "d-flex align-items-center"
   }, [_c("div", {
     staticClass: "dropdown ms-sm-3 header-item topbar-user"
@@ -6009,6 +6009,7 @@ var render = function render() {
         return [_c("page-top", {
           attrs: {
             topPageTitle: "Module List",
+            "default-add-button": _vm.can("modules.create"),
             "page-modal-title": "Module Add/Edit",
             "default-object": {
               parent_id: ""
@@ -6040,7 +6041,7 @@ var render = function render() {
             }
           })]), _vm._v(" "), _c("td", [_c("div", {
             staticClass: "hstack gap-3 fs-15"
-          }, [_c("a", {
+          }, [_vm.can("modules.update") ? _c("a", {
             staticClass: "link-primary",
             on: {
               click: function click($event) {
@@ -6049,7 +6050,7 @@ var render = function render() {
             }
           }, [_c("i", {
             staticClass: "fa fa-edit"
-          })]), _vm._v(" "), _c("a", {
+          })]) : _vm._e(), _vm._v(" "), _vm.can("modules.destroy") ? _c("a", {
             staticClass: "link-danger",
             on: {
               click: function click($event) {
@@ -6058,7 +6059,7 @@ var render = function render() {
             }
           }, [_c("i", {
             staticClass: "fa fa-trash"
-          })])])])]), _vm._v(" "), _vm._l(data.submenus, function (eachData, sIndex) {
+          })]) : _vm._e()])])]), _vm._v(" "), _vm._l(data.submenus, function (eachData, sIndex) {
             return [_c("tr", {
               staticClass: "child"
             }, [_c("td", {
@@ -6331,7 +6332,7 @@ var render = function render() {
             }
           })]), _vm._v(" "), _c("td", [_c("div", {
             staticClass: "hstack gap-3 fs-15"
-          }, [_c("a", {
+          }, [_vm.can("roles.update") ? _c("a", {
             staticClass: "link-primary",
             on: {
               click: function click($event) {
@@ -6340,7 +6341,7 @@ var render = function render() {
             }
           }, [_c("i", {
             staticClass: "fa fa-edit"
-          })]), _vm._v(" "), _c("a", {
+          })]) : _vm._e(), _vm._v(" "), _vm.can("roles.destroy") ? _c("a", {
             staticClass: "link-danger",
             on: {
               click: function click($event) {
@@ -6349,7 +6350,7 @@ var render = function render() {
             }
           }, [_c("i", {
             staticClass: "fa fa-trash"
-          })])])])]);
+          })]) : _vm._e()])])]);
         });
       },
       proxy: true

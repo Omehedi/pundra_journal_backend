@@ -16,8 +16,8 @@
                             </td>
                             <td>
                                 <div class="hstack gap-3 fs-15">
-                                    <a class="link-primary" @click="editData(data, data.id)"><i class="fa fa-edit"></i></a>
-                                    <a class="link-danger"  @click="deleteInformation(index, data.id)"><i class="fa fa-trash"></i></a>
+                                    <a class="link-primary" v-if="can('roles.update')" @click="editData(data, data.id)"><i class="fa fa-edit"></i></a>
+                                    <a class="link-danger" v-if="can('roles.destroy')" @click="deleteInformation(index, data.id)"><i class="fa fa-trash"></i></a>
                                 </div>
                             </td>
                         </tr>
