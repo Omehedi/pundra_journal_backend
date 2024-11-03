@@ -13,14 +13,12 @@ use App\Http\Controllers\RBAC\RoleModuleController;
 use App\Http\Controllers\RBAC\RolePermissionController;
 
 
-Route::get('/', function () {
-    return redirect('/login');
-});
+Route::get('/',[\App\Http\Controllers\Frontend\FrontendController::class,'index'])->name('frontend.index');
 
 
 Route::middleware('guest')->group(function () {
-    Route::get('/login', [AuthController::class, 'loginForm'])->name('login');
-    Route::post('/login', [AuthController::class, 'doLogin']);
+    Route::get('/admin', [AuthController::class, 'loginForm'])->name('login');
+    Route::post('/admin', [AuthController::class, 'doLogin']);
 });
 
 Route::get('/home', function () {
@@ -41,7 +39,7 @@ Route::middleware('auth')->group(function () {
 
         Route::middleware('admin')->group(function () {
             Route::resource('/settings', ConfigurationController::class);
-        
+
             Route::post('/general', [ConfigurationController::class, 'getGeneralData']);
             Route::resource('/modules', ModuleController::class);
             Route::resource('/roles', RoleController::class);

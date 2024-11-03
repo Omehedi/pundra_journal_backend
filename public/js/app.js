@@ -8985,11 +8985,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     getConfigurations: function getConfigurations() {
       var callback = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+      var url = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'api/configurations';
       var _this = this;
       this.$store.commit('httpRequest', true);
       _this.axios({
         method: "post",
-        url: _this.urlGenerate('api/configurations')
+        url: _this.urlGenerate(url)
       }).then(function (response) {
         _this.$store.commit('httpRequest', false);
         if (parseInt(response.data.status) === 2000) {

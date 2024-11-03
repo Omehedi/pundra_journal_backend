@@ -270,10 +270,10 @@ export default {
                 }
             });
         },
-        getConfigurations: function (callback = null) {
+        getConfigurations: function (callback = null, url = 'api/configurations') {
             const _this = this;
             this.$store.commit('httpRequest', true);
-            _this.axios({method: "post", url: _this.urlGenerate('api/configurations')})
+            _this.axios({method: "post", url: _this.urlGenerate(url)})
                 .then(function (response) {
                     _this.$store.commit('httpRequest', false);
                     if (parseInt(response.data.status) === 2000) {

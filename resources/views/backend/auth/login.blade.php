@@ -60,7 +60,7 @@
                                     <p class="text-muted">Sign in to continue In Dashboard.</p>
                                 </div>
                                 <div class="p-2 mt-4">
-                                    <form action="{{ url('login') }}" method="post">
+                                    <form action="{{ url('admin') }}" method="post">
                                         {{ csrf_field() }}
                                         <div class="mb-3">
                                             <label for="email" class="form-label">Email Address</label>
