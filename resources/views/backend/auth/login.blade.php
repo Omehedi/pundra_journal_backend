@@ -1,10 +1,13 @@
 <!doctype html>
 <html lang="en" data-layout="vertical" data-topbar="light" data-sidebar="dark" data-sidebar-size="lg"
     data-sidebar-image="none" data-preloader="disable">
+@php
+    $config = configs(['logo', 'app_name']);
+ @endphp
 
 <head>
     <meta charset="utf-8" />
-    <title>SIGN IN | TMSS ICT SMS SERVICE</title>
+    <title>SIGN IN | {{isset($config['app_name']) ? $config['app_name'] : ''}}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
@@ -36,10 +39,9 @@
                         <div class="text-center mt-sm-5 mb-4 text-white-50">
                             <div>
                                 <a href="{{ url('/') }}" class="d-inline-block auth-logo">
-                                    <img src="{{ assets('images/logo.png') }}" alt="" height="80">
+                                    <img src="{{ isset($config['logo']) ? $config['logo'] : '' }}" alt="" height="80">
                                 </a>
                             </div>
-                            <p class="mt-3 fs-15 fw-medium">Easy, Best & Trusted Service</p>
                         </div>
                     </div>
                 </div>
@@ -56,7 +58,7 @@
                         <div class="card mt-4">
                             <div class="card-body p-4">
                                 <div class="text-center mt-2">
-                                    <h5 class="text-primary">Welcome To SMS Service !</h5>
+                                    <h5 class="text-primary">Welcome To {{isset($config['app_name']) ? $config['app_name'] : ''}} !</h5>
                                     <p class="text-muted">Sign in to continue In Dashboard.</p>
                                 </div>
                                 <div class="p-2 mt-4">
@@ -93,14 +95,6 @@
 
                                         <div class="mt-4">
                                             <button class="btn btn-success w-100" type="submit">Login</button>
-                                        </div>
-
-                                        <div class="mt-4 text-center">
-                                            <div class="signin-other-title">
-                                                <a href="{{ url('/register') }}">
-                                                    <p class="fs-13 mb-4 title">Signup</p>
-                                                </a>
-                                            </div>
                                         </div>
                                     </form>
                                 </div>
