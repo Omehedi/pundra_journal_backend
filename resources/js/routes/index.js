@@ -11,6 +11,7 @@ import configurationList from "../views/settings/configurationList";
 
 
 import userDetails from "../views/users/userDetails";
+import teamMember from "../views/admin_views/journal/teamMember";
 
 
 const routes = [
@@ -54,6 +55,10 @@ const routes = [
             {
                 path: 'role_permissions', name: 'role_permissions', component: rolePermissions,
                 meta:{dataUrl:'api/role_permissions', pageTitle:'Role Permission'}
+            },
+            {
+                path: 'team_member', name: 'team_member', component: teamMember,
+                meta:{dataUrl:'api/team_member', pageTitle:'Team Member'}
             },
         ]
     },

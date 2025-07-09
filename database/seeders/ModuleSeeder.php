@@ -87,9 +87,21 @@ class ModuleSeeder extends Seeder
                     ],
                 ]
             ],
-
-
-
+            [
+                'display_name' => 'Journal',
+                'name' => 'journal',
+                'link' => '#',
+                'permissions' => ['show'],
+                'icon' => 'fa-book',
+                'submenus' => [
+                    [
+                        'display_name' => 'Team Members',
+                        'name' => 'team_member',
+                        'link' => '/admin/team_member',
+                        'permissions' => array_merge($resourcePermissions, []),
+                    ],
+                ]
+            ],
         ];
 
         foreach ($modules as $data) {

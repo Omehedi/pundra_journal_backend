@@ -40,6 +40,7 @@ Route::middleware('auth')->group(function () {
             Route::resource('/roles', RoleController::class);
             Route::resource('/module_permissions', RoleModuleController::class);
             Route::resource('/role_permissions', RolePermissionController::class);
+            Route::resource('/team_member', \App\Http\Controllers\Admin\TeamMemberController::class);
 
             Route::get('/dashboard', [DashboardController::class, 'dashboardData']);
         });
