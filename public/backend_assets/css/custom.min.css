@@ -112,10 +112,11 @@ img.thumbnail {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    height: 100px;
-    width: 100%;
+    height: 121px;
+    width: 98%;
     cursor: pointer;
     text-align: center !important;
+    /*border: 1px dashed #0003;*/
 }
 
 .image_upload img {
