@@ -6,7 +6,7 @@
                     <div class="col-12">
                         <div class="d-flex align-items-lg-center flex-lg-row flex-column">
                             <div class="flex-grow-1">
-                                <h4 class="fs-16 mb-1">Welcome, {{showData(Config.user, 'name')}}</h4>
+                                <h4 class="fs-16 mb-1">Welcome, {{showData(Config.config, 'name')}}</h4>
                                 <p class="text-muted mb-0">Thanks for back again.</p>
                             </div>
 

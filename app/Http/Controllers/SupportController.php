@@ -105,12 +105,10 @@ class SupportController extends Controller
         try {
 
             $keyword = request()->input('keyword');
-            $datas = $this->model
-                ->when($keyword, function ($query) use ($keyword) {
-                    $query->where('name', 'Like', "%$keyword%");
-                })
-                ->paginate($this->perPage);
-            return returnData(2000, $datas);
+            $dataList = $this->model->when($keyword, function ($query) use ($keyword) {
+                $query->where('name', 'Like', "%$keyword%");
+            })->get();
+            return returnData(2000, $dataList);
         } catch (\Exception $exception) {
             return response()->json(returnData(5000, $exception->getMessage(), 'Whoops, Something Went Wrong..!!'));
         }
@@ -126,13 +124,22 @@ class SupportController extends Controller
     {
         try {
             $input = $request->all();
-            $validate = $this->model->validate($input);
-            if ($validate->fails()) {
-                return returnData(2000, $validate->errors());
-            }
 
-            $this->model->fill($input);
-            $this->model->save();
+            $value = $this->model->get()->keyBY('key');
+            foreach ($input as $index => $data) {
+                if (isset($value[$data['key']])) {
+                    $existData = $value[$data['key']];
+                    $existData->value = $data['value'];
+                    $existData->save();
+                } else {
+                    Configuration::create([
+                        "key" => $data['key'],
+                        "type" => $data['type'],
+                        "display_name" => $data['display_name'],
+                        "value" => $data['value'],
+                    ]);
+                }
+            }
 
             return returnData(2000, $this->model, 'Successfully Inserted');
 
@@ -156,21 +163,17 @@ class SupportController extends Controller
     {
         try {
             $input = $request->all();
-
             $validate = $this->model->validate($input);
             if ($validate->fails()) {
                 return returnData(2000, $validate->errors());
             }
-
             $data = $this->model->where('id', $input['id'])->first();
-
             if ($data) {
                 $data->fill($input);
                 $data->save();
 
                 return returnData(2000, $this->model, 'Successfully Updated');
             }
-
             return returnData(5000, $this->model, 'Data not found');
 
         } catch (\Exception $exception) {
@@ -197,3 +200,4 @@ class SupportController extends Controller
 
     }
 }
+

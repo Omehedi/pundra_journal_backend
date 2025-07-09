@@ -2,89 +2,70 @@
     <div class="main_component">
         <div class="row">
             <div class="col">
-                <data-table :table-heading="tableHeading" table-title="Student List">
+                <data-table :table-heading="false" table-title="Student List" :default-table="false" :default-search-button="false" :default-filter="false">
                     <template v-slot:page_top>
-                        <page-top topPageTitle="Configuration List" :default-add-button="can('configuration.create')" page-modal-title="Configuration Add/Edit" :default-object="{key:'',type:'text',value:''}"></page-top>
+                        <page-top :default-add-button="false" topPageTitle="Setup and Configurations"></page-top>
                     </template>
-                    <template v-slot:data>
-                        <tr v-for="(data, index) in dataList.data">
-                            <td>{{parseInt(dataList.from)+index}}</td>
-                            <td>{{data.display_name}}</td>
-                            <td>{{data.key}}</td>
-                            <td>
-                                <span v-if="data.type == 'file'">
-                                    <img style="height: 20px" :src="getImage(data.value)">
-                                </span>
-                                <span v-else v-html="showData(data,'value')"></span>
-                            </td>
-                            <td>
-                                <div class="hstack gap-3 fs-15">
-                                    <a v-if="can('configuration.update')" class="link-primary" @click="editData(data, data.id)"><i class="fa fa-edit"></i></a>
-                                    <a v-if="can('configuration.destroy')" class="link-danger"  @click="deleteInformation(index, data.id)"><i class="fa fa-trash"></i></a>
+                    <template v-slot:reportHeader>
+                        <form @submit.prevent="submitForm(dataList,false)">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <template v-for="(input, inIndex) in dataList">
+                                        <div v-if="input" class="row mt-2">
+                                            <div class="col-md-3">
+                                                <strong>{{ input.display_name }} : </strong>
+                                            </div>
+                                            <div class="col-md-9">
+                                                <template v-if="input.type == 'text'">
+                                                    <input class="form-control form-control" v-validate="'required'" data-vv-as="Value" :name="`${input.key}`" v-model="input.value"  type="text">
+                                                </template>
+                                                <template v-if="input.type == 'file'">
+                                                    <div @click="clickImageInput(input.key)" class="mb-2">
+                                                        <div class="form-group image_upload" :style="{ backgroundImage: 'url(' + getImage(null, 'images/upload.png') + ')' }" dstyle="background-size: 300px !important">
+                                                            <img v-if="input.value" :src="getImage(input.value)">
+                                                            <input name="thumbnail" style="display: none;" :id="input.key" type="file" @change="UploadImage($event, input, 'value')">
+                                                        </div>
+                                                    </div>
+                                                </template>
+                                                <template v-if="input.type == 'textarea'">
+                                                    <textarea rowspan="2" class="form-control form-control" v-validate="'required'" v-model="input.value" style="width: 100%;" :name="`${input.key}`"></textarea>
+                                                </template>
+                                                <template v-if="input.type == 'tinmyce'">
+                                                    <textarea class="form-control form-control" v-validate="'required'" data-vv-as="Value" v-model="input.value" style="width: 100%;" :name="`${input.key}`"></textarea>
+                                                </template>
+                                                <template v-if="input.type == 'select'">
+                                                    <select v-validate="'required'" v-model="input.value" :name="`${input.key}`" class="form-control">
+                                                        <option value="">Select</option>
+                                                        <template v-for="(data, index) in requiredData[input.key]">
+                                                            <option :value="data.id">{{ data.name }}</option>
+                                                        </template>
+                                                    </select>
+                                                </template>
+                                                <template v-if="input.type == 'number'">
+                                                    <input class="form-control form-control" v-validate="'required'" data-vv-as="Value" :name="`${input.key}`" v-model="input.value"  type="number"
+                                                           :min="input.key === 'loan_capability' ? 0 : null"
+                                                           :max="input.key === 'loan_capability' ? 100 : null">
+                                                </template>
+
+                                            </div>
+                                        </div>
+                                    </template>
+                                    <div class="row mt-2">
+                                        <div class="col-md-3"></div>
+                                        <div class="col-md-9">
+                                            <input type="submit" value="Submit"
+                                                   class="btn"
+                                                   style="background-color: #3f726d; color: #fff; border: none; padding: 8px 20px; font-weight: 500; box-shadow: none; outline: none; cursor: pointer;">
+                                        </div>
+                                    </div>
+
                                 </div>
-                            </td>
-                        </tr>
+                            </div>
+                        </form>
                     </template>
                 </data-table>
             </div>
         </div>
-        <formModal modalSize="modal-xs" @submit="submitForm(formObject,'formModal')">
-            <div class="row">
-                <div class="col-md-12 mb-2">
-                    <label>Key</label>
-                    <select v-validate="'required'" name="key"  v-model="formObject.key" class="form-control">
-                        <option value="">Select Key</option>
-                        <template v-for="(key, index) in configKeys">
-                            <option :value="index">{{key}}</option>
-                        </template>
-                    </select>
-                </div>
-                <div class="col-md-12 mb-2">
-                    <label>Display name</label>
-                    <input v-validate="'required'" name="display_name" type="text" v-model="formObject.display_name" class="form-control">
-                </div>
-                <div class="col-md-12 mb-2">
-                    <label>Type</label>
-                    <select v-validate="'required'" name="display_name" v-model="formObject.type" class="form-control">
-                        <option value="">Select</option>
-                        <option value="text">Text</option>
-                        <option value="tinmyce">tinmyce</option>
-                        <option value="textarea">Textarea</option>
-                        <option value="file">File</option>
-                        <option value="select">Select</option>
-                    </select>
-                </div>
-                <div class="col-md-12 mb-2">
-                    <label>Value</label>
-                    <template v-if="formObject.type == 'text'" >
-                        <input class="form-control form-control" v-validate="'required'" data-vv-as="Value" v-model="formObject.value" name="value" type="text">
-                    </template>
-                    <template v-if="formObject.type == 'file'">
-                        <div @click="clickImageInput('value')" class="mb-2">
-                            <div class="form-group image_upload" :style="{ backgroundImage: 'url(' + getImage(null, 'images/upload.png') + ')' }">
-                                <img v-if="formObject.value" :src="getImage(formObject.value)">
-                                <input name="thumbnail" :v-validate="formType === 1 ? 'required' : 'sometimes'" style="display: none;" id="value" type="file" @change="uploadFile($event, formObject, 'value')">
-                            </div>
-                        </div>
-                    </template>
-                    <template v-if="formObject.type == 'textarea'" >
-                        <textarea class="form-control form-control" v-validate="'required'" data-vv-as="Value" v-model="formObject.value" style="width: 100%;"></textarea>
-                    </template>
-                    <template v-if="formObject.type == 'tinmyce'" >
-                        <textarea class="form-control form-control" v-validate="'required'" data-vv-as="Value" v-model="formObject.value" style="width: 100%;"></textarea>
-                    </template>
-                    <template v-if="formObject.type == 'select'">
-                        <select v-validate="'required'" name="key" v-model="formObject.value" class="form-control">
-                            <option value="">Select</option>
-                            <template v-for="(data, index) in dataSource">
-                                <option :value="data.name">{{data.display_name}}</option>
-                            </template>
-                        </select>
-                    </template>
-                </div>
-
-            </div>
-        </formModal>
     </div>
 </template>
 
@@ -109,17 +90,10 @@
                 },
             }
         },
-        computed : {
-            dataSource(){
-                var key = this.formObject.key;
-                return [
-                    {name : 1, display_name : 'YES'},
-                    {name : 0, display_name : 'NO'},
-                ]
-            }
-        },
         mounted(){
-            this.getDataList();
+            const _this = this;
+            _this.getDataList();
+
         }
     }
 </script>
