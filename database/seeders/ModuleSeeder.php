@@ -100,6 +100,12 @@ class ModuleSeeder extends Seeder
                         'link' => '/admin/team_member',
                         'permissions' => array_merge($resourcePermissions, []),
                     ],
+                    [
+                        'display_name' => 'Team Groups',
+                        'name' => 'team_group',
+                        'link' => '/admin/team_group',
+                        'permissions' => array_merge($resourcePermissions, []),
+                    ],
                 ]
             ],
         ];
