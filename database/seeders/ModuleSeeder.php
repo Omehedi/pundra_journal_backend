@@ -22,7 +22,7 @@ class ModuleSeeder extends Seeder
         RolePermission::truncate();
         RoleModules::truncate();
 
-        $resourcePermissions = ['index', 'create', 'store', 'show','edit','update','destroy'];
+        $resourcePermissions = ['index', 'create', 'store', 'show','edit','update','destroy','status'];
 
         $modules = [
             [

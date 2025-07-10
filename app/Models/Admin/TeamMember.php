@@ -10,12 +10,16 @@ class TeamMember extends Model
 {
     use HasFactory;
     protected $table='journal_team_members';
-    protected $fillable = ['name', 'designation', 'image','email','phone','status'];
+    protected $fillable = ['name', 'designation_primary', 'designation_secondary', 'qualifications', 'institution', 'address', 'image','email','phone','status'];
     public function validate($input)
     {
         return Validator::make($input, [
-            'name' => '',
-            'designation' => '',
+            'name' => 'required',
+            'designation_primary' => 'required',
+            'designation_secondary' => '',
+            'qualifications' => 'required',
+            'institution' => 'required',
+            'address' => 'required',
             'image' => '',
             'email' => '',
             'phone' => '',
