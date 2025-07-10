@@ -12,6 +12,9 @@ use App\Http\Controllers\SupportController;
 use App\Http\Controllers\RBAC\RoleModuleController;
 use App\Http\Controllers\RBAC\RolePermissionController;
 
+use App\Http\Controllers\Frontend\FrontendController;
+use App\Http\Controllers\Frontend\frontendAuthController;
+
 Route::middleware('guest')->group(function () {
     Route::get('/admin', [AuthController::class, 'loginForm'])->name('login');
     Route::post('/admin', [AuthController::class, 'doLogin']);
@@ -46,3 +49,16 @@ Route::middleware('auth')->group(function () {
         });
     });
 });
+
+Route::get('/login', [frontendAuthController::class, 'login']);
+
+//frontend route
+Route::get('/', [FrontendController::class, 'index']);
+Route::get('/about_the_journal', [FrontendController::class, 'about_the_journal']);
+Route::get('/call_for_paper', [FrontendController::class, 'call_for_paper']);
+Route::get('/editorial_Board', [FrontendController::class, 'editorial_Board']);
+Route::get('/archieve', [FrontendController::class, 'archieve']);
+Route::get('/archieve_article', [FrontendController::class, 'archieve_article']);
+Route::get('/article_details', [FrontendController::class, 'article_details']);
+Route::get('/browse_article', [FrontendController::class, 'browse_article']);
+Route::get('/for_authors', [FrontendController::class, 'for_authors']);
