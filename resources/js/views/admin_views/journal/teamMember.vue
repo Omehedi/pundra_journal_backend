@@ -9,9 +9,14 @@
                     <template v-slot:data>
                         <tr v-for="(data, index) in dataList.data">
                             <td class="fw-medium">{{ parseInt(dataList.from) + index }}</td>
+                            <td>
+                                <a v-if="data.image" @click="openFile(getImage(data.image))">
+                                    <i class="fa fa-download"> File</i>
+                                </a>
+                                <p v-else>N/A</p>
+                            </td>
                             <td>{{ data.name }}</td>
-                            <td>{{data.designation}}</td>
-                            <td>{{ data.image }}</td>
+                            <td>{{data.designation_primary}}</td>
                             <td>{{ data.email }}</td>
                             <td>{{ data.phone }}</td>
                             <td>
@@ -37,40 +42,87 @@
             <div class="mb-2">
                 <div class="row">
                     <div class="col-md-4">
-                        <label class="col-form-label">Name :</label>
+                        <label class="col-form-label">Name:</label>
                     </div>
                     <div class="col-md-8">
-                        <input type="text" class="form-control" v-model="formObject.name" placeholder="Full name" name="name">
+                        <input type="text" class="form-control" v-validate="'required'" v-model="formObject.name" placeholder="Enter full name" name="name">
                     </div>
                 </div>
             </div>
+
             <div class="mb-2">
                 <div class="row">
                     <div class="col-md-4">
-                        <label class="col-form-label">Email :</label>
+                        <label class="col-form-label">Email:</label>
                     </div>
                     <div class="col-md-8">
-                        <input type="text" class="form-control" v-validate="'required'" v-model="formObject.email" placeholder="Email address" name="email">
+                        <input type="text" class="form-control" v-model="formObject.email" placeholder="Enter email address" name="email">
                     </div>
                 </div>
             </div>
+
             <div class="mb-2">
                 <div class="row">
                     <div class="col-md-4">
-                        <label class="col-form-label">Designation :</label>
+                        <label class="col-form-label">Designation Primary:</label>
                     </div>
                     <div class="col-md-8">
-                        <input type="text" class="form-control" v-model="formObject.designation" placeholder="Job title" name="designation">
+                        <input type="text" class="form-control" v-validate="'required'" v-model="formObject.designation_primary" placeholder="Enter primary designation" name="designation_primary">
                     </div>
                 </div>
             </div>
+
+            <div class="mb-2">
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="col-form-label">Designation Secondary:</label>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" v-model="formObject.designation_secondary" placeholder="Enter secondary designation (optional)" name="designation_secondary">
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-2">
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="col-form-label">Qualifications:</label>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" v-validate="'required'" v-model="formObject.qualifications" placeholder="Enter qualifications" name="qualifications">
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-2">
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="col-form-label">Institution:</label>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" v-validate="'required'" v-model="formObject.institution" placeholder="Enter current institution/organization" name="institution">
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-2">
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="col-form-label">Address:</label>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" v-validate="'required'" v-model="formObject.address" placeholder="Enter contact address" name="address">
+                    </div>
+                </div>
+            </div>
+
             <div class="mb-2">
                 <div class="row">
                     <div class="col-md-4">
                         <label class="col-form-label">Phone Number :</label>
                     </div>
                     <div class="col-md-8">
-                        <input type="number" class="form-control" v-validate="'required'" v-model="formObject.phone" placeholder="Contact number" name="phone_number">
+                        <input type="number" class="form-control" v-model="formObject.phone" placeholder="Enter phone number" name="phone_number">
                     </div>
                 </div>
             </div>
@@ -101,7 +153,7 @@
         components: { FormModal, PageTop, DataTable },
         data() {
             return {
-                tableHeading: ['Sl', 'Name','Designation','Image','Email', 'Phone', 'Status', 'Action'],
+                tableHeading: ['Sl','Image','Name','Designation','Email','Phone','Status','Action'],
                 formModalId: 'formModal',
             };
         },
